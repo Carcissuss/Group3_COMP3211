@@ -1,0 +1,80 @@
+{
+  "schema": "xilinx.com:schema:json_instance:1.0",
+  "ip_inst": {
+    "xci_name": "design_1_all_alu_0_0",
+    "cell_name": "all_alu_0",
+    "component_reference": "xilinx.com:module_ref:all_alu:1.0",
+    "ip_revision": "1",
+    "gen_directory": "../../../../../../Final_Project.gen/sources_1/bd/design_1/ip/design_1_all_alu_0_0",
+    "parameters": {
+      "component_parameters": {
+        "MAX_BLOCK_BITS": [ { "value": "8", "resolve_type": "user", "format": "long", "usage": "all" } ],
+        "MAX_TAG_BITS": [ { "value": "16", "resolve_type": "user", "format": "long", "usage": "all" } ],
+        "TAG_INDEX_BITS": [ { "value": "4", "resolve_type": "user", "format": "long", "usage": "all" } ],
+        "PC_COUNT_BITS": [ { "value": "6", "resolve_type": "user", "format": "long", "usage": "all" } ],
+        "OPCODE_BITS": [ { "value": "4", "resolve_type": "user", "format": "long", "usage": "all" } ],
+        "REC_BITS": [ { "value": "15", "resolve_type": "user", "format": "long", "usage": "all" } ],
+        "TAG_BITS": [ { "value": "4", "resolve_type": "user", "format": "long", "usage": "all" } ],
+        "RECTAG_BITS": [ { "value": "19", "resolve_type": "user", "format": "long", "usage": "all" } ],
+        "NUM_BLOCKS": [ { "value": "4", "resolve_type": "user", "format": "long", "usage": "all" } ],
+        "INSTRUCTION_BITS": [ { "value": "32", "resolve_type": "user", "format": "long", "usage": "all" } ],
+        "REG_BITS": [ { "value": "8", "resolve_type": "user", "format": "long", "usage": "all" } ],
+        "Component_Name": [ { "value": "design_1_all_alu_0_0", "resolve_type": "user", "usage": "all" } ]
+      },
+      "model_parameters": {
+        "MAX_BLOCK_BITS": [ { "value": "8", "resolve_type": "generated", "format": "long", "usage": "all" } ],
+        "MAX_TAG_BITS": [ { "value": "16", "resolve_type": "generated", "format": "long", "usage": "all" } ],
+        "TAG_INDEX_BITS": [ { "value": "4", "resolve_type": "generated", "format": "long", "usage": "all" } ],
+        "PC_COUNT_BITS": [ { "value": "6", "resolve_type": "generated", "format": "long", "usage": "all" } ],
+        "OPCODE_BITS": [ { "value": "4", "resolve_type": "generated", "format": "long", "usage": "all" } ],
+        "REC_BITS": [ { "value": "15", "resolve_type": "generated", "format": "long", "usage": "all" } ],
+        "TAG_BITS": [ { "value": "4", "resolve_type": "generated", "format": "long", "usage": "all" } ],
+        "RECTAG_BITS": [ { "value": "19", "resolve_type": "generated", "format": "long", "usage": "all" } ],
+        "NUM_BLOCKS": [ { "value": "4", "resolve_type": "generated", "format": "long", "usage": "all" } ],
+        "INSTRUCTION_BITS": [ { "value": "32", "resolve_type": "generated", "format": "long", "usage": "all" } ],
+        "REG_BITS": [ { "value": "8", "resolve_type": "generated", "format": "long", "usage": "all" } ]
+      },
+      "project_parameters": {
+        "ARCHITECTURE": [ { "value": "artix7" } ],
+        "BASE_BOARD_PART": [ { "value": "digilentinc.com:basys3:part0:1.2" } ],
+        "BOARD_CONNECTIONS": [ { "value": "" } ],
+        "DEVICE": [ { "value": "xc7a35t" } ],
+        "NEXTGEN_VERSAL": [ { "value": "0" } ],
+        "PACKAGE": [ { "value": "cpg236" } ],
+        "PREFHDL": [ { "value": "VHDL" } ],
+        "SILICON_REVISION": [ { "value": "" } ],
+        "SIMULATOR_LANGUAGE": [ { "value": "MIXED" } ],
+        "SPEEDGRADE": [ { "value": "-1" } ],
+        "STATIC_POWER": [ { "value": "" } ],
+        "TEMPERATURE_GRADE": [ { "value": "" } ]
+      },
+      "runtime_parameters": {
+        "IPCONTEXT": [ { "value": "IP_Integrator" } ],
+        "IPREVISION": [ { "value": "1" } ],
+        "MANAGED": [ { "value": "TRUE" } ],
+        "OUTPUTDIR": [ { "value": "../../../../../../Final_Project.gen/sources_1/bd/design_1/ip/design_1_all_alu_0_0" } ],
+        "SELECTEDSIMMODEL": [ { "value": "" } ],
+        "SHAREDDIR": [ { "value": "../../ipshared" } ],
+        "SWVERSION": [ { "value": "2024.1" } ],
+        "SYNTHESISFLOW": [ { "value": "OOC_HIERARCHICAL" } ]
+      }
+    },
+    "boundary": {
+      "ports": {
+        "alu_flp": [ { "direction": "in" } ],
+        "alu_swp": [ { "direction": "in" } ],
+        "alu_shf": [ { "direction": "in" } ],
+        "alu_xor": [ { "direction": "in" } ],
+        "read_data_a": [ { "direction": "in", "size_left": "3", "size_right": "0" } ],
+        "read_data_b": [ { "direction": "in", "size_left": "3", "size_right": "0" } ],
+        "read_data_c": [ { "direction": "in", "size_left": "3", "size_right": "0" } ],
+        "read_data_d": [ { "direction": "in", "size_left": "3", "size_right": "0" } ],
+        "read_data_e": [ { "direction": "in", "size_left": "3", "size_right": "0" } ],
+        "rec_in_flat": [ { "direction": "in", "size_left": "15", "size_right": "0" } ],
+        "data_a": [ { "direction": "out", "size_left": "3", "size_right": "0" } ],
+        "data_b": [ { "direction": "out", "size_left": "3", "size_right": "0" } ],
+        "xor_out": [ { "direction": "out", "size_left": "3", "size_right": "0" } ]
+      }
+    }
+  }
+}
