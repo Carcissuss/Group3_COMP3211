@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="Single_cycle_core_TB_VHDL_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="Single_cycle_core_TB_VHDL" />
+            <top_module name="constants" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="32.030 ns"></ZoomStartTime>
+      <ZoomEndTime time="53.196 ns"></ZoomEndTime>
+      <Cursor1Time time="20.000 ns"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="155"></NameColumnWidth>
+      <ValueColumnWidth column_width="64"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="14" />
+   <wvobject fp_name="/Single_cycle_core_TB_VHDL/r_CLOCK" type="logic">
+      <obj_property name="ElementShortName">r_CLOCK</obj_property>
+      <obj_property name="ObjectShortName">r_CLOCK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Single_cycle_core_TB_VHDL/r_reset" type="logic">
+      <obj_property name="ElementShortName">r_reset</obj_property>
+      <obj_property name="ObjectShortName">r_reset</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Single_cycle_core_TB_VHDL/r_done" type="logic">
+      <obj_property name="ElementShortName">r_done</obj_property>
+      <obj_property name="ObjectShortName">r_done</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Single_cycle_core_TB_VHDL/c_CLOCK_PERIOD" type="other">
+      <obj_property name="ElementShortName">c_CLOCK_PERIOD</obj_property>
+      <obj_property name="ObjectShortName">c_CLOCK_PERIOD</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Single_cycle_core_TB_VHDL/UUT/sig_alu_flp" type="logic">
+      <obj_property name="ElementShortName">sig_alu_flp</obj_property>
+      <obj_property name="ObjectShortName">sig_alu_flp</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Single_cycle_core_TB_VHDL/UUT/sig_alu_swp" type="logic">
+      <obj_property name="ElementShortName">sig_alu_swp</obj_property>
+      <obj_property name="ObjectShortName">sig_alu_swp</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Single_cycle_core_TB_VHDL/UUT/sig_alu_shf" type="logic">
+      <obj_property name="ElementShortName">sig_alu_shf</obj_property>
+      <obj_property name="ObjectShortName">sig_alu_shf</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Single_cycle_core_TB_VHDL/UUT/sig_alu_xor" type="logic">
+      <obj_property name="ElementShortName">sig_alu_xor</obj_property>
+      <obj_property name="ObjectShortName">sig_alu_xor</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Single_cycle_core_TB_VHDL/UUT/sig_write_enable_a" type="logic">
+      <obj_property name="ElementShortName">sig_write_enable_a</obj_property>
+      <obj_property name="ObjectShortName">sig_write_enable_a</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Single_cycle_core_TB_VHDL/UUT/sig_write_enable_b" type="logic">
+      <obj_property name="ElementShortName">sig_write_enable_b</obj_property>
+      <obj_property name="ObjectShortName">sig_write_enable_b</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Single_cycle_core_TB_VHDL/UUT/sig_record_to_reg" type="logic">
+      <obj_property name="ElementShortName">sig_record_to_reg</obj_property>
+      <obj_property name="ObjectShortName">sig_record_to_reg</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Single_cycle_core_TB_VHDL/UUT/sig_insn" type="array">
+      <obj_property name="ElementShortName">sig_insn[31:0]</obj_property>
+      <obj_property name="ObjectShortName">sig_insn[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Single_cycle_core_TB_VHDL/UUT/sig_IFID_insn" type="array">
+      <obj_property name="ElementShortName">sig_IFID_insn[31:0]</obj_property>
+      <obj_property name="ObjectShortName">sig_IFID_insn[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/Single_cycle_core_TB_VHDL/UUT/reg_file/sig_regfile" type="array">
+      <obj_property name="ElementShortName">sig_regfile[0:3][3:0]</obj_property>
+      <obj_property name="ObjectShortName">sig_regfile[0:3][3:0]</obj_property>
+   </wvobject>
+</wave_config>
