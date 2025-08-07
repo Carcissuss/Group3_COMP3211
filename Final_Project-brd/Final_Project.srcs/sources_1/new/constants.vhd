@@ -17,7 +17,7 @@ package constants is
     constant OPCODE_BITS : integer := 4;
     
     -- User chosen values, number of blocks will be calculated
-    constant REC_BITS : integer := 15;
+    constant REC_BITS : integer := 12;
     constant TAG_BITS : integer := 4;
     constant RECTAG_BITS : integer := REC_BITS + TAG_BITS;
     constant NUM_BLOCKS: integer := ((REC_BITS + TAG_BITS - 1) / TAG_BITS);
@@ -35,8 +35,8 @@ package constants is
     constant MAX_TALLY_BITS : integer := 16;
 
 --    type tally_file is array(0 to CAND_BITS - 1) of std_logic_vector(MAX_TALLY_BITS - 1 downto 0);
-    type tally_inner_array is array(0 to 63) of std_logic_vector(MAX_TALLY_BITS - 1 downto 0);
-    type tally_file is array(0 to 63) of tally_inner_array;
+    type tally_inner_array is array(0 to 3) of std_logic_vector(TALLY_BITS - 1 downto 0);
+    type tally_file is array(0 to 3) of tally_inner_array;
 end package;
 
 package body constants is

@@ -39,34 +39,31 @@ use work.constants.all;
 entity tally_files is
     Port ( tally_rec : in STD_LOGIC_VECTOR(REC_BITS - 1 DOWNTO 0);
            clk : in STD_LOGIC;
+           left, right, up, down: in std_logic;
            done : in STD_LOGIC;
-           btnC, btnR, btnL, btnU, btnD : in STD_LOGIC;
-           sw : in STD_LOGIC_VECTOR(15 DOWNTO 0);
-           led : out STD_LOGIC_VECTOR(7 DOWNTO 0);
-           seg : out STD_LOGIC_VECTOR(6 DOWNTO 0);
-           an : inout STD_LOGIC_VECTOR(3 DOWNTO 0));
+           data_out: out STD_LOGIC_VECTOR(TALLY_BITS - 1 downto 0)
+           );
 end tally_files;
 
 architecture Behavioral of tally_files is
-	signal count : std_logic_vector(15 downto 0) := (others => '0');
+
     signal sum : std_logic_vector(TALLY_BITS DOWNTO 0);
-    signal hundred, ten, digit: std_logic_vector(3 downto 0);
     signal data: std_logic_vector(3 downto 0);
-    signal value: integer;
-    signal tally: std_logic_vector(TALLY_BITS - 1 downto 0) := tally_rec(REC_BITS - 1 - HEAD_BITS downto 0 );
-    signal candidate: std_logic_vector(CAND_BITS - 1 downto 0) := tally_rec(REC_BITS - 1 downto REC_BITS - CAND_BITS - 1);
-    signal district: std_logic_vector(DIST_BITS - 1 downto 0) := tally_rec(REC_BITS - CAND_BITS - 1 downto REC_BITS - CAND_BITS - DIST_BITS - 1);
+    signal tally: std_logic_vector(TALLY_BITS - 1 downto 0);
+    signal candidate: std_logic_vector(CAND_BITS - 1 downto 0);
+    signal district: std_logic_vector(DIST_BITS - 1 downto 0);
     signal tally_array: tally_file;
     signal display_candidate: integer := 0;
     signal display_district: integer := 0;
-    signal data_out: std_logic_vector(TALLY_BITS - 1 downto 0);
-    signal left, right, up, down: std_logic;
 begin
+     tally <= tally_rec((REC_BITS - 1 - HEAD_BITS) downto 0);
+     candidate <= tally_rec(REC_BITS - 1 downto REC_BITS - CAND_BITS);
+     district <= tally_rec(REC_BITS - CAND_BITS - 1 downto REC_BITS - CAND_BITS - DIST_BITS);
      tally_file_process: process ( clk,
                            done,
                            tally
                            ) is
-  
+    
     variable var_tally_array : tally_file;
     variable var_display_cand: integer := display_candidate;
     variable var_display_dist: integer := display_district;
@@ -85,13 +82,13 @@ begin
             if (done = '1') then
                 sum <= ("0"&var_tally_array(var_candidate)(var_district)) + ("0"&tally);
                 var_tally_array(var_candidate)(var_district) := sum(TALLY_BITS - 1 downto 0);
-             else if (left AND var_display_cand < 63) then
+             elsif (left = '1' AND var_display_cand < 63) then
                 var_display_dist := var_display_dist + 1;
-             else if (right AND var_display_cand > 0) then
+             elsif (right = '1' AND var_display_cand > 0) then
                 var_display_dist := var_display_dist - 1;
-             else if (up AND var_display_cand > 0) then
+             elsif (up = '1' AND var_display_cand > 0) then
                 var_display_cand := var_display_cand - 1;
-             else if (down AND var_display_cand < 63)
+             elsif (down = '1' AND var_display_cand < 63) then
                 var_display_cand := var_display_cand + 1;
              end if;
         end if;
@@ -103,46 +100,4 @@ begin
         tally_array <= var_tally_array;
 
     end process;
-        -- create 3 data
-avalue <= to_integer(data_out); 
-    hundred <= std_logic_vector(to_unsigned(value/100, 4));
-    ten <= std_logic_vector(to_unsigned((value mod 100) / 10, 4));
-    digit <= std_logic_vector(to_unsigned((value mod 10), 4));
-    
-    led <= STD_LOGIC_VECTOR(sum);
-     process(clk) -- 10ns clock 
-    begin
-        if rising_edge(clk) then
-            count <= count+1 ;
-            if (count(15 downto 14) = "00") then
-                an <= "1110";
-                data <= digit;
-            elsif (count(15 downto 14) = "01") then 
-                an <= "1101";
-                data <= ten;
-            elsif (count(15 downto 14) = "10") then
-                an <= "1011";
-                data <= hundred;
-            else 
-                an <= "0111";
-                data <= "0000";
-            end if; 
-        end if; 
-    end process;
-    process(an)
-        begin
-            case data is
-                 when "0000" => seg <= "1000000";
-                 when "0001" => seg <= "1111001";
-                 when "0010" => seg <= "0100100";
-                 when "0011" => seg <= "0110000";
-                 when "0100" => seg <= "0011001";
-                 when "0101" => seg <= "0010010";
-                 when "0110" => seg <= "0000010";
-                 when "0111" => seg <= "1111000";
-                 when "1000" => seg <= "0000000";
-                 when "1001" => seg <= "0010000";
-                 when others => seg <= "1111111";
-              end case;
-        end process;
 end Behavioral;
