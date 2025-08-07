@@ -49,7 +49,7 @@ begin
     variable var_addr     : integer;
   
     begin
-        -- 2 cycle delay for now
+        -- 2 cycle delay
         if (reset = '1') then
             -- Block partition
             var_insn_mem(0)  := X"10000000";
