@@ -8,7 +8,7 @@ entity EXWB_register is
     Port (
         reset             : in std_logic;
         clk               : in std_logic;
-        IF_write        : in std_logic;
+--        IF_write        : in std_logic;
 
         read_alu_a_in    : in std_logic_vector(TAG_BITS - 1 downto 0);
         read_alu_b_in    : in std_logic_vector(TAG_BITS - 1 downto 0);
@@ -43,7 +43,8 @@ begin
 
     process (clk, reset)
     begin
-        if reset = '1' or (rising_edge(clk) and IF_write = '1') then
+--        if reset = '1' or (rising_edge(clk) and IF_write = '1') then
+          if reset = '1' then
             read_alu_a_out      <= (others => '0');
             read_alu_b_out      <= (others => '0');
             read_alu_xor_out    <= (others => '0');

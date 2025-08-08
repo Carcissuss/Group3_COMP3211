@@ -39,12 +39,14 @@ use work.constants.all;
 entity tally_files is
     Port ( tally_rec : in STD_LOGIC_VECTOR(REC_BITS - 1 DOWNTO 0);
            clk : in STD_LOGIC;
+           reset : in STD_LOGIC;
+           load : in STD_LOGIC;
            left, right, up, down: in std_logic;
            done : in STD_LOGIC;
            data_out: out STD_LOGIC_VECTOR(TALLY_BITS - 1 downto 0)
            );
-end tally_files;
-
+end tally_files;   
+     
 architecture Behavioral of tally_files is
 
     signal sum : std_logic_vector(TALLY_BITS DOWNTO 0);
@@ -56,7 +58,7 @@ architecture Behavioral of tally_files is
     signal display_candidate: integer := 0;
     signal display_district: integer := 0;
 begin
-     tally <= tally_rec((REC_BITS - 1 - HEAD_BITS) downto 0);
+     tally <= tally_rec((TALLY_BITS - 1) downto 0);
      candidate <= tally_rec(REC_BITS - 1 downto REC_BITS - CAND_BITS);
      district <= tally_rec(REC_BITS - CAND_BITS - 1 downto REC_BITS - CAND_BITS - DIST_BITS);
      tally_file_process: process ( clk,
@@ -65,36 +67,39 @@ begin
                            ) is
     
     variable var_tally_array : tally_file;
-    variable var_display_cand: integer := display_candidate;
-    variable var_display_dist: integer := display_district;
+    variable var_display_cand: integer := conv_integer(candidate);
+    variable var_display_dist: integer := conv_integer(district);
     variable var_candidate : integer := conv_integer(candidate);
     variable var_district :  integer := conv_integer(district);
     begin
---        if (reset = '1') then
---            -- initial values of the data memory : reset to zero 
---            for i in 0 to CAND_BITS - 1 LOOP
---                 tally_file_mem(i) := (others => '0');
---            END LOOP;
-    
+        if (reset = '1') then
+            -- initial values of the data memory : reset to zero 
+            for i in 0 to 3 LOOP
+                for j in 0 to 3 LOOP
+                 var_tally_array(i)(j) := (others => '0');
+                 END LOOP;
+            END LOOP;
+        end if;
         if (rising_edge (clk)) then
             -- memory writes on the falling clock edge
---            save data in the 
-            if (done = '1') then
+--            save data in the
+            if (done = '1' AND load = '1') then
                 sum <= ("0"&var_tally_array(var_candidate)(var_district)) + ("0"&tally);
                 var_tally_array(var_candidate)(var_district) := sum(TALLY_BITS - 1 downto 0);
-             elsif (left = '1' AND var_display_cand < 63) then
+             elsif (left = '1' AND var_display_dist < 63) then
                 var_display_dist := var_display_dist + 1;
-             elsif (right = '1' AND var_display_cand > 0) then
+             elsif (right = '1' AND var_display_dist > 0) then
                 var_display_dist := var_display_dist - 1;
              elsif (up = '1' AND var_display_cand > 0) then
                 var_display_cand := var_display_cand - 1;
              elsif (down = '1' AND var_display_cand < 63) then
                 var_display_cand := var_display_cand + 1;
              end if;
+             -- continuous read of the memory location given by var_addr 
+            data_out <= var_tally_array(var_display_cand)(var_display_dist);
         end if;
        
-        -- continuous read of the memory location given by var_addr 
-        data_out <= var_tally_array(var_display_cand)(var_display_dist);
+
  
         -- the following are probe signals (for simulation purpose) 
         tally_array <= var_tally_array;

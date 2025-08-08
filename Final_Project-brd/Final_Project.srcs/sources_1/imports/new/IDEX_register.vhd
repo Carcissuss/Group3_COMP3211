@@ -8,7 +8,7 @@ entity IDEX_register is
     Port (
         reset             : in std_logic;
         clk               : in std_logic;
-        IF_write        : in std_logic;
+--        IF_write        : in std_logic;
 
         read_data_a_in    : in std_logic_vector(TAG_BITS - 1 downto 0);
         read_data_b_in    : in std_logic_vector(TAG_BITS - 1 downto 0);
@@ -61,7 +61,8 @@ begin
 
     process (clk, reset)
     begin
-        if reset = '1' or (rising_edge(clk) and IF_write = '1') then
+--        if reset = '1' or (rising_edge(clk) and IF_write = '1') then
+          if reset = '1' then
             read_data_a_out    <= (others => '0');
             read_data_b_out    <= (others => '0');
             read_data_c_out    <= (others => '0');

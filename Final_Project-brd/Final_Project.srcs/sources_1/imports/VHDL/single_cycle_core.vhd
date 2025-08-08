@@ -183,7 +183,7 @@ end component;
 
 component IFID_register is
     Port (
-          IF_write        : in std_logic;
+--          IF_write        : in std_logic;
           reset             : in std_logic;
           clk               : in std_logic;
           insn_in           : in std_logic_vector(INSTRUCTION_BITS - 1 downto 0);
@@ -194,7 +194,7 @@ component IDEX_register is
     Port (
         reset             : in std_logic;
         clk               : in std_logic;
-        IF_write        : in std_logic;
+--        IF_write        : in std_logic;
 
         read_data_a_in    : in std_logic_vector(TAG_BITS - 1 downto 0);
         read_data_b_in    : in std_logic_vector(TAG_BITS - 1 downto 0);
@@ -246,7 +246,7 @@ component EXWB_register is
     Port (
         reset             : in std_logic;
         clk               : in std_logic;
-        IF_write        : in std_logic;
+--        IF_write        : in std_logic;
 
         read_alu_a_in    : in std_logic_vector(TAG_BITS - 1 downto 0);
         read_alu_b_in    : in std_logic_vector(TAG_BITS - 1 downto 0);
@@ -316,6 +316,8 @@ end component;
 component tally_files is
     Port ( tally_rec : in STD_LOGIC_VECTOR(REC_BITS - 1 DOWNTO 0);
            clk : in STD_LOGIC;
+           reset : in STD_LOGIC;
+           load : in STD_LOGIC;
            left, right, up, down: in std_logic;
            done : in STD_LOGIC;
            data_out: out STD_LOGIC_VECTOR(TALLY_BITS - 1 downto 0)
@@ -363,8 +365,8 @@ signal sig_xor_tag              : std_logic_vector(TAG_BITS - 1  downto 0);
 -- signal reset                    : std_logic;
 
 -- IFID stage
-signal sig_IFID_write           : std_logic;
-signal sig_IFID_insn            : std_logic_vector(INSTRUCTION_BITS - 1 downto 0);
+--signal sig_IFID_write           : std_logic;
+--signal sig_IFID_insn            : std_logic_vector(INSTRUCTION_BITS - 1 downto 0);
 
 -- IDEX stage
 signal sig_IDEX_read_data_a    : std_logic_vector(TAG_BITS - 1 downto 0);
@@ -406,7 +408,7 @@ signal sig_FWD_mux_rt_data      : std_logic_vector(15 downto 0);
 
 -- Hazard Controller
 signal sig_halt_PC           : std_logic;
-signal sig_IF_write              : std_logic;
+--signal sig_IF_write              : std_logic;
 
 -- Comparator
 signal sig_done             : std_logic;
@@ -425,7 +427,7 @@ signal reset                : std_logic;
 signal rec                  : std_logic_vector((REC_BITS - 1) downto 0); 
 begin
     reset <= btnC;
-    sig_one_6b <= "000001";
+    sig_one_6b <= "0001";
     led(15) <= sig_done;
     rectag <= sw(RECTAG_BITS - 1 downto 0);
     rec <= sw(REC_BITS - 1 downto 0);
@@ -453,7 +455,7 @@ begin
 
     ctrl_unit : control_unit 
     port map (
-        opcode          => sig_IFID_insn(INSTRUCTION_BITS - 1 downto INSTRUCTION_BITS - OPCODE_BITS),
+        opcode          => sig_insn(INSTRUCTION_BITS - 1 downto INSTRUCTION_BITS - OPCODE_BITS),
         alu_flp         => sig_alu_flp,
         alu_swp         => sig_alu_swp,
         alu_shf         => sig_alu_shf,
@@ -474,10 +476,10 @@ begin
         reset              => reset,
         clk                => clk,
 
-        read_register_a    => sig_IFID_insn(INSTRUCTION_BITS - OPCODE_BITS - 1 
+        read_register_a    => sig_insn(INSTRUCTION_BITS - OPCODE_BITS - 1 
                                   downto INSTRUCTION_BITS - OPCODE_BITS - MAX_BLOCK_BITS),
 
-        read_register_b    => sig_IFID_insn(INSTRUCTION_BITS - OPCODE_BITS - MAX_BLOCK_BITS - 1 
+        read_register_b    => sig_insn(INSTRUCTION_BITS - OPCODE_BITS - MAX_BLOCK_BITS - 1 
                                   downto INSTRUCTION_BITS - OPCODE_BITS - 2*MAX_BLOCK_BITS),
         rectag_in          => rectag,
         write_enable_a     => sig_EXWB_write_enable_a,
@@ -520,41 +522,42 @@ begin
         );
                
                
-    IFID_stage : IFID_register
-    port map (IF_write    => sig_IF_write,
-              reset       => reset,
-              clk         => clk,
-              insn_in     => sig_insn,
-              insn_out    => sig_IFID_insn
-    );
+--    IFID_stage : IFID_register
+--    port map (
+----IF_write    => sig_IF_write,
+--              reset       => reset,
+--              clk         => clk,
+--              insn_in     => sig_insn,
+--              insn_out    => sig_IFID_insn
+--    );
     
     IDEX_stage : IDEX_register
     port map (
         reset                => reset,
         clk                  => clk,
-        IF_write             => sig_IF_write,
+--        IF_write             => sig_IF_write,
 
         read_data_a_in       => sig_read_data_a,
         read_data_b_in       => sig_read_data_b,
-        read_data_c_in       => sig_IFID_insn(INSTRUCTION_BITS - OPCODE_BITS - 2*MAX_BLOCK_BITS - 1 
+        read_data_c_in       => sig_insn(INSTRUCTION_BITS - OPCODE_BITS - 2*MAX_BLOCK_BITS - 1 
                                   downto INSTRUCTION_BITS - OPCODE_BITS - 2*MAX_BLOCK_BITS - TAG_INDEX_BITS),
-                                  
-        read_data_d_in       => sig_IFID_insn(INSTRUCTION_BITS - OPCODE_BITS - 2*MAX_BLOCK_BITS - TAG_INDEX_BITS - 1 
+                          
+        read_data_d_in       => sig_insn(INSTRUCTION_BITS - OPCODE_BITS - 2*MAX_BLOCK_BITS - TAG_INDEX_BITS - 1 
                                   downto INSTRUCTION_BITS - OPCODE_BITS - 2*MAX_BLOCK_BITS - 2*TAG_INDEX_BITS),
-                                  
-        read_data_e_in       => sig_IFID_insn(INSTRUCTION_BITS - OPCODE_BITS - 2*MAX_BLOCK_BITS - 2*TAG_INDEX_BITS - 1 
+                         
+        read_data_e_in       => sig_insn(INSTRUCTION_BITS - OPCODE_BITS - 2*MAX_BLOCK_BITS - 2*TAG_INDEX_BITS - 1 
                                   downto INSTRUCTION_BITS - OPCODE_BITS - 2*MAX_BLOCK_BITS - 3*TAG_INDEX_BITS),
-
+ 
         read_data_a_out      => sig_IDEX_read_data_a,
         read_data_b_out      => sig_IDEX_read_data_b,
         read_data_c_out      => sig_IDEX_read_data_c,
         read_data_d_out      => sig_IDEX_read_data_d,
         read_data_e_out      => sig_IDEX_read_data_e,
 
-        write_register_a_in  => sig_IFID_insn(INSTRUCTION_BITS - OPCODE_BITS - 1 
+        write_register_a_in  => sig_insn(INSTRUCTION_BITS - OPCODE_BITS - 1 
                                   downto INSTRUCTION_BITS - OPCODE_BITS - MAX_BLOCK_BITS),
         write_register_a_out => sig_IDEX_write_register_a,
-        write_register_b_in  => sig_IFID_insn(INSTRUCTION_BITS - OPCODE_BITS - MAX_BLOCK_BITS - 1 
+        write_register_b_in  => sig_insn(INSTRUCTION_BITS - OPCODE_BITS - MAX_BLOCK_BITS - 1 
                                   downto INSTRUCTION_BITS - OPCODE_BITS - 2*MAX_BLOCK_BITS),
         write_register_b_out => sig_IDEX_write_register_b,
 
@@ -590,7 +593,7 @@ begin
     port map (
         reset                 => reset,
         clk                   => clk,
-        IF_write              => sig_IF_write,
+--        IF_write              => sig_IF_write,
 
         read_alu_a_in         => sig_alu_data_a,
         read_alu_b_in         => sig_alu_data_b,
@@ -669,14 +672,23 @@ begin
         tally: tally_files
         port map (tally_rec => rec,
            clk => clk,
-           left => btnL,
+           reset => reset,
+           load => btnL,
+           left => '0',
            right => btnR,
            up => btnU,
            down => btnD,
            done => sig_done,
            data_out => tally_count
         ); 
-        
+    led(7) <= tally_count(7);
+    led(6) <= tally_count(6);
+    led(5) <= tally_count(5);
+    led(4) <= tally_count(4);
+    led(3) <= tally_count(3);
+    led(2) <= tally_count(2);
+    led(1) <= tally_count(1);
+    led(0) <= tally_count(0);
              -- create 3 data
     value <= conv_integer(tally_count); 
     hundred <= std_logic_vector(to_unsigned(value/100, 4));

@@ -91,7 +91,7 @@ architecture Behavioral of all_alu is
         var_px := to_integer(unsigned(px));
         var_s  := to_integer(unsigned(s));
     
-        for i in 0 to TAG_BITS - 1 loop
+        for i in 0 to TAG_BITS loop
             exit when i = var_s;
             var_bx((var_px + i) mod TAG_BITS) := by_slice(i);
         end loop;
@@ -113,7 +113,7 @@ architecture Behavioral of all_alu is
         var_px := to_integer(unsigned(px));
         var_s  := s;
     
-        for i in 0 to TAG_BITS - 1 loop
+        for i in 0 to TAG_BITS loop
             exit when i = var_s ;
             result(i) := var_bx((var_px + i) mod TAG_BITS);
         end loop;

@@ -36,7 +36,7 @@ use work.constants.all;
 
 entity IFID_register is
 Port (
-      IF_write        : in std_logic;
+--      IF_write        : in std_logic;
       reset             : in std_logic;
       clk               : in std_logic;
       insn_in           : in std_logic_vector(INSTRUCTION_BITS - 1 downto 0);

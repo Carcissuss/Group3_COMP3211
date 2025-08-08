@@ -2,12 +2,94 @@
   "design": {
     "design_info": {
       "boundary_crc": "0x0",
+      "device": "xc7a35tcpg236-1",
       "gen_directory": "../../../../Final_Project.gen/sources_1/bd/design_1",
       "name": "design_1",
       "rev_ctrl_bd_flag": "RevCtrlBdOff",
       "synth_flow_mode": "Hierarchical",
-      "tool_version": "2024.1"
+      "tool_version": "2024.1.2"
     },
-    "design_tree": {}
+    "design_tree": {
+      "program_counter_0": "",
+      "adder_6b_0": ""
+    },
+    "components": {
+      "program_counter_0": {
+        "vlnv": "xilinx.com:module_ref:program_counter:1.0",
+        "ip_revision": "1",
+        "xci_name": "design_1_program_counter_0_0",
+        "xci_path": "ip\\design_1_program_counter_0_0\\design_1_program_counter_0_0.xci",
+        "inst_hier_path": "program_counter_0",
+        "reference_info": {
+          "ref_type": "hdl",
+          "ref_name": "program_counter",
+          "boundary_crc": "0x0"
+        },
+        "ports": {
+          "reset": {
+            "type": "rst",
+            "direction": "I"
+          },
+          "clk": {
+            "type": "clk",
+            "direction": "I",
+            "parameters": {
+              "ASSOCIATED_RESET": {
+                "value": "reset",
+                "value_src": "constant"
+              }
+            }
+          },
+          "halt_PC": {
+            "direction": "I"
+          },
+          "addr_in": {
+            "direction": "I",
+            "left": "5",
+            "right": "0"
+          },
+          "addr_out": {
+            "direction": "O",
+            "left": "5",
+            "right": "0"
+          }
+        }
+      },
+      "adder_6b_0": {
+        "vlnv": "xilinx.com:module_ref:adder_6b:1.0",
+        "ip_revision": "1",
+        "xci_name": "design_1_adder_6b_0_0",
+        "xci_path": "ip\\design_1_adder_6b_0_0\\design_1_adder_6b_0_0.xci",
+        "inst_hier_path": "adder_6b_0",
+        "reference_info": {
+          "ref_type": "hdl",
+          "ref_name": "adder_6b",
+          "boundary_crc": "0x0"
+        },
+        "ports": {
+          "src_a": {
+            "direction": "I",
+            "left": "5",
+            "right": "0"
+          },
+          "src_b": {
+            "direction": "I",
+            "left": "5",
+            "right": "0"
+          },
+          "halt_PC": {
+            "direction": "I"
+          },
+          "sum": {
+            "direction": "O",
+            "left": "5",
+            "right": "0"
+          },
+          "carry_out": {
+            "direction": "O"
+          }
+        }
+      }
+    }
   }
 }

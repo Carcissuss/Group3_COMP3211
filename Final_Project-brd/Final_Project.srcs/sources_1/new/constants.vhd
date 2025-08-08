@@ -13,7 +13,7 @@ package constants is
     constant TAG_INDEX_BITS : integer := 4;
     
     -- PC counter size
-    constant PC_COUNT_BITS : integer := 6;
+    constant PC_COUNT_BITS : integer := 4;
     constant OPCODE_BITS : integer := 4;
     
     -- User chosen values, number of blocks will be calculated
